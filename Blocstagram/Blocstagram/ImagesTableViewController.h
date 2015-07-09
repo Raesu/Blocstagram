@@ -11,6 +11,7 @@
 #import "Media.h"
 #import "Comment.h"
 #import "DataSource.h"
+#import "MediaTableViewCell.h"
 
 @interface ImagesTableViewController : UITableViewController
 

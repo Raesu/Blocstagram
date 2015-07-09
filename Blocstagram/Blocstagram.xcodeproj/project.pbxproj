@@ -27,6 +27,7 @@
 		FA855C961B4ECE8C00A3167E /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = FA855C951B4ECE8C00A3167E /* Media.m */; };
 		FA855C991B4ECF6100A3167E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = FA855C981B4ECF6100A3167E /* Comment.m */; };
 		FA855C9C1B4ED07900A3167E /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FA855C9B1B4ED07900A3167E /* DataSource.m */; };
+		FA855C9F1B4EFC2C00A3167E /* MediaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA855C9E1B4EFC2C00A3167E /* MediaTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		FA855C981B4ECF6100A3167E /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		FA855C9A1B4ED07900A3167E /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
 		FA855C9B1B4ED07900A3167E /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
+		FA855C9D1B4EFC2C00A3167E /* MediaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaTableViewCell.h; sourceTree = "<group>"; };
+		FA855C9E1B4EFC2C00A3167E /* MediaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +114,8 @@
 		FA855C521B4EAC5900A3167E /* Blocstagram */ = {
 			isa = PBXGroup;
 			children = (
-				FA855C791B4EB63000A3167E /* Images */,
+				FA855C9D1B4EFC2C00A3167E /* MediaTableViewCell.h */,
+				FA855C9E1B4EFC2C00A3167E /* MediaTableViewCell.m */,
 				FA855C571B4EAC5900A3167E /* AppDelegate.h */,
 				FA855C581B4EAC5900A3167E /* AppDelegate.m */,
 				FA855C911B4ECDA500A3167E /* User.h */,
@@ -126,6 +130,7 @@
 				FA855C8F1B4EB69300A3167E /* ImagesTableViewController.m */,
 				FA855C601B4EAC5900A3167E /* Images.xcassets */,
 				FA855C621B4EAC5900A3167E /* LaunchScreen.xib */,
+				FA855C791B4EB63000A3167E /* Images */,
 				FA855C531B4EAC5900A3167E /* Supporting Files */,
 			);
 			path = Blocstagram;
@@ -285,6 +290,7 @@
 			files = (
 				FA855C931B4ECDA500A3167E /* User.m in Sources */,
 				FA855C991B4ECF6100A3167E /* Comment.m in Sources */,
+				FA855C9F1B4EFC2C00A3167E /* MediaTableViewCell.m in Sources */,
 				FA855C961B4ECE8C00A3167E /* Media.m in Sources */,
 				FA855C591B4EAC5900A3167E /* AppDelegate.m in Sources */,
 				FA855C9C1B4ED07900A3167E /* DataSource.m in Sources */,

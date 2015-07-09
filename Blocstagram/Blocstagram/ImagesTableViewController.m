@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"imageCell"];
+    [self.tableView registerClass:[MediaTableViewCell class] forCellReuseIdentifier:@"imageCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,32 +38,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imageCell" forIndexPath:indexPath];
-    
-    static NSInteger imageViewTag = 1234;
-    UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:imageViewTag];
-    
-    if (!imageView) {
-        imageView = [UIImageView new];
-        imageView.contentMode = UIViewContentModeScaleToFill;
-        
-        imageView.frame = cell.contentView.bounds;
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        imageView.tag = imageViewTag;
-        [cell.contentView addSubview:imageView];
-    }
-    
-    Media *item = [[self items] objectAtIndex:indexPath.row];
-    imageView.image = item.image;
-    
+    MediaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imageCell" forIndexPath:indexPath];
+    cell.mediaItem = [[self items] objectAtIndex:indexPath.row];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Media *item = [[self items] objectAtIndex:indexPath.row];
-    UIImage *image = item.image;
-    
-    return (CGRectGetWidth(self.view.frame)/image.size.width * image.size.height);
+    // seems heightForMediaItem could have been an instance method, ie
+    // [item heightWithWidth:CGRectGetWidth(self.view.frame)];
+    return [MediaTableViewCell heightForMediaItem:item width:CGRectGetWidth(self.view.frame)];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
