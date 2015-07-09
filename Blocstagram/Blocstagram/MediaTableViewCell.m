@@ -24,7 +24,7 @@ static UIFont *boldFont;
 static UIColor *usernameLabelGray;
 static UIColor *commentLabelGray;
 static UIColor *linkColor;
-static NSParagraphStyle *paragraphStyle;
+static NSMutableParagraphStyle *paragraphStyle;
 
 @implementation MediaTableViewCell
 
@@ -114,6 +114,9 @@ static NSParagraphStyle *paragraphStyle;
     [mutableUsernameAndCaptionString addAttribute:NSFontAttributeName value:[boldFont fontWithSize:usernameFontSize] range:usernameRange];
     [mutableUsernameAndCaptionString addAttribute:NSForegroundColorAttributeName value:linkColor range:usernameRange];
     
+    NSRange captionRange = [baseString rangeOfString:self.mediaItem.caption];
+    [mutableUsernameAndCaptionString addAttribute:NSKernAttributeName value:@1.9 range:captionRange];
+    
     return mutableUsernameAndCaptionString;
 }
 
@@ -121,6 +124,16 @@ static NSParagraphStyle *paragraphStyle;
     NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] init];
     
     for (Comment *comment in self.mediaItem.comments) {
+        
+        // Very weird, my paragraph aligning seems to align all comments to the right,
+        // then flips to left randomly as i scroll
+        
+        if ([self.mediaItem.comments indexOfObject:comment] % 2 == 0) {
+            paragraphStyle.alignment = NSTextAlignmentRight;
+        } else {
+            paragraphStyle.alignment = NSTextAlignmentLeft;
+        }
+        
         // Make a string that says "username comment" followed by a line break
         NSString *baseString = [NSString stringWithFormat:@"%@ %@\n", comment.from.userName, comment.text];
         
@@ -130,9 +143,17 @@ static NSParagraphStyle *paragraphStyle;
         
         NSRange usernameRange = [baseString rangeOfString:comment.from.userName];
         [oneCommentString addAttribute:NSFontAttributeName value:boldFont range:usernameRange];
-        [oneCommentString addAttribute:NSForegroundColorAttributeName value:linkColor range:usernameRange];
+        
+        if ([comment isEqual:self.mediaItem.comments[0]]) {
+            [oneCommentString addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:[baseString rangeOfString:baseString]];
+        } else {
+            [oneCommentString addAttribute:NSForegroundColorAttributeName value:linkColor range:usernameRange];
+        }
+        
+        
         
         [commentString appendAttributedString:oneCommentString];
+        
     }
     
     return commentString;
