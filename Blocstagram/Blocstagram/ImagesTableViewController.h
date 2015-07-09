@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
+#import "Media.h"
+#import "Comment.h"
+#import "DataSource.h"
 
 @interface ImagesTableViewController : UITableViewController
-
-@property (nonatomic, strong) NSMutableArray *images;
 
 @end

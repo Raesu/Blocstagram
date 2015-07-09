@@ -16,35 +16,24 @@
 
 -(instancetype)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
-    
-    if (self) {
-        self.images = [NSMutableArray new];
-    }
+
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    for (int i = 1; i <= 10; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"%d.jpg", i];
-        UIImage *image = [UIImage imageNamed:imageName];
-        if (image) {
-            [self.images addObject:image];
-        }
-    }
+
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"imageCell"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.images.count;
+    return [self items].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -64,35 +53,35 @@
         [cell.contentView addSubview:imageView];
     }
     
-    UIImage *image = [self.images objectAtIndex:indexPath.row];
-    imageView.image = image;
+    Media *item = [[self items] objectAtIndex:indexPath.row];
+    imageView.image = item.image;
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIImage *image = [self.images objectAtIndex:indexPath.row];
+    Media *item = [[self items] objectAtIndex:indexPath.row];
+    UIImage *image = item.image;
+    
     return (CGRectGetWidth(self.view.frame)/image.size.width * image.size.height);
 }
 
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
-
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [self.images removeObjectAtIndex:indexPath.row];
+        // [self.images removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
 
+- (NSArray *)items {
+    return [DataSource sharedInstance].mediaItems;
+}
 
 /*
 // Override to support rearranging the table view.
