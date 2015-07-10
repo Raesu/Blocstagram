@@ -62,7 +62,13 @@ static NSParagraphStyle *paragraphStyle;
                                                                                    views:viewDictionary]];
         
         // tried to center the image as well but this had no effect, maybe the toItem relation is wrong, i need the superview
-        self.imageWidthConstraint = [NSLayoutConstraint constraintWithItem:_mediaImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+        self.imageWidthConstraint = [NSLayoutConstraint constraintWithItem:_mediaImageView
+                                                                 attribute:NSLayoutAttributeCenterX
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self.contentView
+                                                                 attribute:NSLayoutAttributeCenterX
+                                                                multiplier:1
+                                                                  constant:0];
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel]|"
                                                                                  options:kNilOptions
