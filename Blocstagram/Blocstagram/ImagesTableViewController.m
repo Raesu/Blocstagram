@@ -98,7 +98,10 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Media *item = [[self items] objectAtIndex:indexPath.row];
+        
         [[DataSource sharedInstance] deleteMediaItem:item];
+        [[DataSource sharedInstance] insertMediaItem:item];
+        
         
         // [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {

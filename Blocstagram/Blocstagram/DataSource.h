@@ -15,5 +15,6 @@
 
 + (instancetype)sharedInstance;
 - (void)deleteMediaItem:(Media *)item;
+- (void)insertMediaItem:(Media *)item;
 
 @end
