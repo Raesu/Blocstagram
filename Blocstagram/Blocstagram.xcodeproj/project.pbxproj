@@ -114,8 +114,6 @@
 		FA855C521B4EAC5900A3167E /* Blocstagram */ = {
 			isa = PBXGroup;
 			children = (
-				FA855C9D1B4EFC2C00A3167E /* MediaTableViewCell.h */,
-				FA855C9E1B4EFC2C00A3167E /* MediaTableViewCell.m */,
 				FA855C571B4EAC5900A3167E /* AppDelegate.h */,
 				FA855C581B4EAC5900A3167E /* AppDelegate.m */,
 				FA855C911B4ECDA500A3167E /* User.h */,
@@ -128,6 +126,8 @@
 				FA855C9B1B4ED07900A3167E /* DataSource.m */,
 				FA855C8E1B4EB69300A3167E /* ImagesTableViewController.h */,
 				FA855C8F1B4EB69300A3167E /* ImagesTableViewController.m */,
+				FA855C9D1B4EFC2C00A3167E /* MediaTableViewCell.h */,
+				FA855C9E1B4EFC2C00A3167E /* MediaTableViewCell.m */,
 				FA855C601B4EAC5900A3167E /* Images.xcassets */,
 				FA855C621B4EAC5900A3167E /* LaunchScreen.xib */,
 				FA855C791B4EB63000A3167E /* Images */,
