@@ -11,7 +11,9 @@
 #import "Media.h"
 #import "Comment.h"
 
-@interface DataSource ()
+@interface DataSource () {
+    NSMutableArray *_mediaItems;
+}
 
 @property (nonatomic, strong) NSArray *mediaItems;
 
@@ -20,7 +22,7 @@
 
 @implementation DataSource
 
-+ (instancetype) sharedInstance {
++ (instancetype)sharedInstance {
     static dispatch_once_t once;
     static id sharedInstance;
     dispatch_once(&once, ^{
@@ -29,7 +31,7 @@
     return sharedInstance;
 }
 
-- (instancetype) init {
+- (instancetype)init {
     self = [super init];
     
     if (self) {
@@ -39,7 +41,7 @@
     return self;
 }
 
-- (void) addRandomData {
+- (void)addRandomData {
     NSMutableArray *randomMediaItems = [NSMutableArray array];
     
     for (int i = 1; i <= 10; i++) {
@@ -69,7 +71,7 @@
     self.mediaItems = randomMediaItems;
 }
 
-- (User *) randomUser {
+- (User *)randomUser {
     User *user = [[User alloc] init];
     
     user.userName = [self randomStringOfLength:arc4random_uniform(10) + 2];
@@ -81,7 +83,7 @@
     return user;
 }
 
-- (Comment *) randomComment {
+- (Comment *)randomComment {
     Comment *comment = [[Comment alloc] init];
     
     comment.from = [self randomUser];
@@ -90,7 +92,7 @@
     return comment;
 }
 
-- (NSString *) randomSentence {
+- (NSString *)randomSentence {
     NSUInteger wordCount = arc4random_uniform(20) + 2;
     
     NSMutableString *randomSentence = [[NSMutableString alloc] init];
@@ -103,7 +105,7 @@
     return randomSentence;
 }
 
-- (NSString *) randomStringOfLength:(NSUInteger) len {
+- (NSString *)randomStringOfLength:(NSUInteger) len {
     NSString *alphabet = @"abcdefghijklmnopqrstuvwxyz";
     
     NSMutableString *s = [NSMutableString string];
@@ -115,5 +117,38 @@
     
     return [NSString stringWithString:s];
 }
+
+#pragma mark - Key/Value Observing
+
+- (NSUInteger)countOfMediaItems {
+    return self.mediaItems.count;
+}
+
+- (id)objectInMediaItemsAtIndex:(NSUInteger)index {
+    return [self.mediaItems objectAtIndex:index];
+}
+
+- (NSArray *)mediaItemsAtIndexes:(NSIndexSet *)indexes {
+    return [self.mediaItems objectsAtIndexes:indexes];
+}
+
+- (void)insertObject:(Media *)object inMediaItemsAtIndex:(NSUInteger)index {
+    [_mediaItems insertObject:object atIndex:index];
+}
+
+- (void)removeObjectFromMediaItemsAtIndex:(NSUInteger)index {
+    [_mediaItems removeObjectAtIndex:index];
+}
+
+- (void)replaceObjectInMediaItemsAtIndex:(NSUInteger)index withObject:(id)object {
+    [_mediaItems replaceObjectAtIndex:index withObject:object];
+}
+
+- (void)deleteMediaItem:(Media *)item {
+    // don't understand this
+    NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"mediaItems"];
+    [mutableArrayWithKVO removeObject:item];
+}
+
 
 @end
