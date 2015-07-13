@@ -62,10 +62,10 @@ static NSParagraphStyle *paragraphStyle;
                                                                                    views:viewDictionary]];
         
         // tried to center the image as well but this had no effect, maybe the toItem relation is wrong, i need the superview
-        self.imageWidthConstraint = [NSLayoutConstraint constraintWithItem:_mediaImageView
+        self.imageWidthConstraint = [NSLayoutConstraint constraintWithItem:self.mediaImageView
                                                                  attribute:NSLayoutAttributeCenterX
                                                                  relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.contentView
+                                                                    toItem:self.usernameAndCaptionLabel
                                                                  attribute:NSLayoutAttributeCenterX
                                                                 multiplier:1
                                                                   constant:0];
@@ -112,7 +112,7 @@ static NSParagraphStyle *paragraphStyle;
                                                                           constant:100];
         self.commentLabelHeightConstraint.identifier = @"Comment label height constraint";
         
-        [self.contentView addConstraints:@[self.imageHeightConstraint, self.usernameAndCaptionLabelHeightConstraint, self.commentLabelHeightConstraint]];
+        [self.contentView addConstraints:@[self.imageHeightConstraint, self.usernameAndCaptionLabelHeightConstraint, self.commentLabelHeightConstraint, self.imageWidthConstraint]];
     
     }
     return self;
