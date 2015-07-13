@@ -28,6 +28,7 @@
 		FAE741BF1B540FBF003D91BC /* 8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FAE741B51B540FBF003D91BC /* 8.jpg */; };
 		FAE741C01B540FBF003D91BC /* 9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FAE741B61B540FBF003D91BC /* 9.jpg */; };
 		FAE741C11B540FBF003D91BC /* 10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FAE741B71B540FBF003D91BC /* 10.jpg */; };
+		FAE741C41B541AAD003D91BC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE741C31B541AAD003D91BC /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		FAE741B51B540FBF003D91BC /* 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.jpg; sourceTree = "<group>"; };
 		FAE741B61B540FBF003D91BC /* 9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.jpg; sourceTree = "<group>"; };
 		FAE741B71B540FBF003D91BC /* 10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.jpg; sourceTree = "<group>"; };
+		FAE741C21B541AAD003D91BC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		FAE741C31B541AAD003D91BC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,8 @@
 				FA855C981B4ECF6100A3167E /* Comment.m */,
 				FA855C9A1B4ED07900A3167E /* DataSource.h */,
 				FA855C9B1B4ED07900A3167E /* DataSource.m */,
+				FAE741C21B541AAD003D91BC /* LoginViewController.h */,
+				FAE741C31B541AAD003D91BC /* LoginViewController.m */,
 				FA855C8E1B4EB69300A3167E /* ImagesTableViewController.h */,
 				FA855C8F1B4EB69300A3167E /* ImagesTableViewController.m */,
 				FA855C9D1B4EFC2C00A3167E /* MediaTableViewCell.h */,
@@ -293,6 +298,7 @@
 				FA855C9F1B4EFC2C00A3167E /* MediaTableViewCell.m in Sources */,
 				FA855C961B4ECE8C00A3167E /* Media.m in Sources */,
 				FA855C591B4EAC5900A3167E /* AppDelegate.m in Sources */,
+				FAE741C41B541AAD003D91BC /* LoginViewController.m in Sources */,
 				FA855C9C1B4ED07900A3167E /* DataSource.m in Sources */,
 				FA855C561B4EAC5900A3167E /* main.m in Sources */,
 				FA855C901B4EB69300A3167E /* ImagesTableViewController.m in Sources */,

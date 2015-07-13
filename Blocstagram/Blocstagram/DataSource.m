@@ -33,6 +33,10 @@
     return sharedInstance;
 }
 
++ (NSString *)instagramClientID {
+    return @"28ea900288a846ca814569ffa0e390db";
+}
+
 - (instancetype)init {
     self = [super init];
     
