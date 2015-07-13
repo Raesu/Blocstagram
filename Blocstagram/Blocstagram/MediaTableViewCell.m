@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) NSLayoutConstraint *imageHeightConstraint;
 // below does not change anything
-@property (nonatomic, strong) NSLayoutConstraint *imageWidthConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *imageXConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *usernameAndCaptionLabelHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *commentLabelHeightConstraint;
 
@@ -61,15 +61,6 @@ static NSParagraphStyle *paragraphStyle;
                                                                                  metrics:nil
                                                                                    views:viewDictionary]];
         
-        // tried to center the image as well but this had no effect, maybe the toItem relation is wrong, i need the superview
-        self.imageWidthConstraint = [NSLayoutConstraint constraintWithItem:self.mediaImageView
-                                                                 attribute:NSLayoutAttributeCenterX
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.usernameAndCaptionLabel
-                                                                 attribute:NSLayoutAttributeCenterX
-                                                                multiplier:1
-                                                                  constant:0];
-        
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel]|"
                                                                                  options:kNilOptions
                                                                                  metrics:nil
@@ -110,9 +101,18 @@ static NSParagraphStyle *paragraphStyle;
                                                                          attribute:NSLayoutAttributeNotAnAttribute
                                                                         multiplier:1
                                                                           constant:100];
+        
+        self.imageXConstraint = [NSLayoutConstraint constraintWithItem:_mediaImageView
+                                                             attribute:NSLayoutAttributeCenterX
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.contentView
+                                                             attribute:NSLayoutAttributeCenterX
+                                                            multiplier:1
+                                                              constant:0];
+        
         self.commentLabelHeightConstraint.identifier = @"Comment label height constraint";
         
-        [self.contentView addConstraints:@[self.imageHeightConstraint, self.usernameAndCaptionLabelHeightConstraint, self.commentLabelHeightConstraint, self.imageWidthConstraint]];
+        [self.contentView addConstraints:@[self.imageHeightConstraint, self.usernameAndCaptionLabelHeightConstraint, self.commentLabelHeightConstraint, self.imageXConstraint]];
     
     }
     return self;
