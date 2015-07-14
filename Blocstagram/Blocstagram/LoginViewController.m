@@ -32,7 +32,7 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
     [self.view addSubview:webView];
     self.webView = webView;
     self.title = @"Login";
-    
+
     NSString *urlString = [NSString stringWithFormat:@"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token", [DataSource instagramClientID], [self redirectURI]];
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -40,6 +40,7 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [self.webView loadRequest:request];
     }
+    
 }
 
 - (void)viewWillLayoutSubviews {
@@ -71,6 +72,32 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
         return NO;
     }
     return YES;
+}
+
+- (void)updateBackButton {
+    if ([self.webView canGoBack]) {
+        if (!self.navigationItem.leftBarButtonItem) {
+            [self.navigationItem setHidesBackButton:YES animated:NO];
+            UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"< Login" style:UIBarButtonItemStylePlain target:self action:@selector(backButtonClicked)];
+            self.navigationItem.leftBarButtonItem = backButton;
+        }
+    } else {
+        [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    }
+}
+
+- (void)backButtonClicked {
+    if ([self.webView canGoBack]) {
+        [self.webView goBack];
+    }
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [self updateBackButton];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self updateBackButton];
 }
 
 @end
