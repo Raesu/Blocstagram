@@ -103,12 +103,13 @@ static NSParagraphStyle *paragraphStyle;
                                                                           constant:100];
         
         self.imageXConstraint = [NSLayoutConstraint constraintWithItem:_mediaImageView
-                                                             attribute:NSLayoutAttributeCenterX
+                                                             attribute:NSLayoutAttributeCenterXWithinMargins
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self.contentView
-                                                             attribute:NSLayoutAttributeCenterX
+                                                             attribute:NSLayoutAttributeCenterXWithinMargins
                                                             multiplier:1
                                                               constant:0];
+        self.imageXConstraint.identifier = @"center image";
         
         self.commentLabelHeightConstraint.identifier = @"Comment label height constraint";
         
