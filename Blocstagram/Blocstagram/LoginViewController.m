@@ -26,6 +26,7 @@ NSString *const LoginViewControllerDidGetAccessNotification = @"LoginViewControl
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // why don't we just start working with self.webView directly
     UIWebView *webView = [[UIWebView alloc] init];
     [webView setDelegate:self];
     [self.view addSubview:webView];
@@ -45,19 +46,31 @@ NSString *const LoginViewControllerDidGetAccessNotification = @"LoginViewControl
     self.webView.frame = self.view.bounds;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)dealloc {
+    [self clearInstagramCookies];
+    [self.webView setDelegate:nil];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)clearInstagramCookies {
+    for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
+        NSRange domainRange = [cookie.domain rangeOfString:@"instagram.com"];
+        if (domainRange.location != NSNotFound) {
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+        }
+    }
 }
-*/
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSString *urlString = request.URL.absoluteString;
+    if ([urlString hasPrefix:[self redirectURI]]) {
+        // This contains our auth token
+        NSRange rangeOfAccessTokenParameter = [urlString rangeOfString:@"access_token="];
+        NSUInteger indexOfTokenStarting = rangeOfAccessTokenParameter.location + rangeOfAccessTokenParameter.length;
+        NSString *accessToken = [urlString substringFromIndex:indexOfTokenStarting];
+        [[NSNotificationCenter defaultCenter] postNotificationName:LoginViewControllerDidGetAccessTokenNotification object:accessToken];
+        return NO;
+    }
+    return YES;
+}
 
 @end
