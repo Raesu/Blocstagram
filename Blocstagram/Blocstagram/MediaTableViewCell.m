@@ -142,9 +142,7 @@ static NSParagraphStyle *paragraphStyle;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
+    [super setSelected:NO animated:animated];
 }
 
 + (CGFloat)heightForMediaItem:(Media *)mediaItem width:(CGFloat)width {
@@ -157,6 +155,10 @@ static NSParagraphStyle *paragraphStyle;
     
     // this is getting the bottom of the commentLabel, can't we just get the bottom of the layoutCell.frame?
     return CGRectGetMaxY(layoutCell.commentLabel.frame);
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:NO animated:animated];
 }
 
 #pragma mark Strings

@@ -84,6 +84,16 @@
     [[DataSource sharedInstance] removeObserver:self forKeyPath:@"mediaItems"];
 }
 
+- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Media *item = [[self items] objectAtIndex:indexPath.row];
+    
+    if (item.image) {
+        return 350;
+    } else {
+        return 150;
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
