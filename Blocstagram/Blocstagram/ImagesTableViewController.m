@@ -44,6 +44,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
     if (object == [DataSource sharedInstance] && [keyPath isEqualToString:@"mediaItems"]) {
         NSKeyValueChange kindOfChange = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
         if (kindOfChange == NSKeyValueChangeSetting) {
