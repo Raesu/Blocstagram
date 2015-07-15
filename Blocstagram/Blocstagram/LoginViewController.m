@@ -25,8 +25,7 @@ NSString *const LoginViewControllerDidGetAccessTokenNotification = @"LoginViewCo
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // why don't we just start working with self.webView directly
+
     UIWebView *webView = [[UIWebView alloc] init];
     [webView setDelegate:self];
     [self.view addSubview:webView];
