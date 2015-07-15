@@ -36,6 +36,7 @@
         }];
     } else {
         ImagesTableViewController *imagesVC = [[ImagesTableViewController alloc] init];
+        [navVC setNavigationBarHidden:YES];
         [navVC setViewControllers:@[imagesVC]];
     }
     
