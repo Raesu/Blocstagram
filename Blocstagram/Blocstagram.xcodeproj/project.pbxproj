@@ -19,6 +19,7 @@
 		FA855C991B4ECF6100A3167E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = FA855C981B4ECF6100A3167E /* Comment.m */; };
 		FA855C9C1B4ED07900A3167E /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FA855C9B1B4ED07900A3167E /* DataSource.m */; };
 		FA855C9F1B4EFC2C00A3167E /* MediaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA855C9E1B4EFC2C00A3167E /* MediaTableViewCell.m */; };
+		FA938DD51B572D31004CCD73 /* MediaFullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA938DD41B572D31004CCD73 /* MediaFullScreenViewController.m */; };
 		FAE741B81B540FBF003D91BC /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FAE741AE1B540FBF003D91BC /* 1.jpg */; };
 		FAE741B91B540FBF003D91BC /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FAE741AF1B540FBF003D91BC /* 2.jpg */; };
 		FAE741BA1B540FBF003D91BC /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FAE741B01B540FBF003D91BC /* 3.jpg */; };
@@ -68,6 +69,8 @@
 		FA855C9B1B4ED07900A3167E /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
 		FA855C9D1B4EFC2C00A3167E /* MediaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaTableViewCell.h; sourceTree = "<group>"; };
 		FA855C9E1B4EFC2C00A3167E /* MediaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaTableViewCell.m; sourceTree = "<group>"; };
+		FA938DD31B572D31004CCD73 /* MediaFullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaFullScreenViewController.h; sourceTree = "<group>"; };
+		FA938DD41B572D31004CCD73 /* MediaFullScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaFullScreenViewController.m; sourceTree = "<group>"; };
 		FAE741AE1B540FBF003D91BC /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		FAE741AF1B540FBF003D91BC /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		FAE741B01B540FBF003D91BC /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				FA855C8F1B4EB69300A3167E /* ImagesTableViewController.m */,
 				FA855C9D1B4EFC2C00A3167E /* MediaTableViewCell.h */,
 				FA855C9E1B4EFC2C00A3167E /* MediaTableViewCell.m */,
+				FA938DD31B572D31004CCD73 /* MediaFullScreenViewController.h */,
+				FA938DD41B572D31004CCD73 /* MediaFullScreenViewController.m */,
 				FA855C601B4EAC5900A3167E /* Images.xcassets */,
 				FA855C621B4EAC5900A3167E /* LaunchScreen.xib */,
 				FA855C791B4EB63000A3167E /* Images */,
@@ -352,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA938DD51B572D31004CCD73 /* MediaFullScreenViewController.m in Sources */,
 				FA855C931B4ECDA500A3167E /* User.m in Sources */,
 				FA855C991B4ECF6100A3167E /* Comment.m in Sources */,
 				FA855C9F1B4EFC2C00A3167E /* MediaTableViewCell.m in Sources */,

@@ -11,7 +11,7 @@
 #import "Comment.h"
 #import "User.h"
 
-@interface MediaTableViewCell ()
+@interface MediaTableViewCell () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIImageView *mediaImageView;
 @property (nonatomic, strong) UILabel *usernameAndCaptionLabel;
@@ -20,6 +20,9 @@
 @property (nonatomic, strong) NSLayoutConstraint *imageHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *usernameAndCaptionLabelHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *commentLabelHeightConstraint;
+
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 
 @end
 
@@ -37,6 +40,15 @@ static NSParagraphStyle *paragraphStyle;
     
     if (self) {
         self.mediaImageView = [UIImageView new];
+        self.mediaImageView.userInteractionEnabled = YES;
+        
+        self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
+        self.tapGestureRecognizer.delegate = self;
+        [self.mediaImageView addGestureRecognizer:self.tapGestureRecognizer];
+        
+        self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFired:)];
+        self.longPressGestureRecognizer.delegate = self;
+        [self.mediaImageView addGestureRecognizer:self.longPressGestureRecognizer];
         
         self.usernameAndCaptionLabel = [UILabel new];
         [self.usernameAndCaptionLabel setNumberOfLines:0];
@@ -193,7 +205,7 @@ static NSParagraphStyle *paragraphStyle;
         NSString *baseString = [NSString stringWithFormat:@"%@ %@\n", comment.from.userName, comment.text];
         
         // Make an attributed string, with the "username" bold
-        
+    
         NSMutableAttributedString *oneCommentString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:@{NSFontAttributeName : lightFont, NSParagraphStyleAttributeName : paragraphStyle}];
         
         NSRange usernameRange = [baseString rangeOfString:comment.from.userName];
@@ -204,14 +216,27 @@ static NSParagraphStyle *paragraphStyle;
         } else {
             [oneCommentString addAttribute:NSForegroundColorAttributeName value:linkColor range:usernameRange];
         }
-        
-        
-        
         [commentString appendAttributedString:oneCommentString];
-        
     }
-    
     return commentString;
+}
+
+#pragma mark ImageView
+
+- (void)tapFired:(UITapGestureRecognizer *)sender {
+    [self.delegate cell:self didTapImage:self.mediaImageView];
+}
+
+- (void)longPressFired:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self.delegate cell:self didLongPressImageView:self.mediaImageView];
+    }
+}
+
+#pragma mark UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    return self.isEditing == NO;
 }
 
 #pragma mark Getters & Setters
