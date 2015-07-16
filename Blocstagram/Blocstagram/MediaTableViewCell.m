@@ -58,7 +58,6 @@ static NSParagraphStyle *paragraphStyle;
         [self.commentLabel setNumberOfLines:0];
         [self.commentLabel setBackgroundColor:commentLabelGray];
         
-        // why are we using UIView to add these objects, UIImageView and two UILabels?
         for (UIView *view in @[self.mediaImageView, self.usernameAndCaptionLabel, self.commentLabel]) {
             [self.contentView addSubview:view];
             [view setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -165,7 +164,6 @@ static NSParagraphStyle *paragraphStyle;
     [layoutCell setNeedsLayout];
     [layoutCell layoutIfNeeded];
     
-    // this is getting the bottom of the commentLabel, can't we just get the bottom of the layoutCell.frame?
     return CGRectGetMaxY(layoutCell.commentLabel.frame);
 }
 

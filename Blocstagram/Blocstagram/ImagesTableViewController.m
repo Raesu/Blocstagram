@@ -149,7 +149,7 @@
     [self presentViewController:fullscreenVC animated:YES completion:nil];
 }
 
-- (void) cell:(MediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView {
+- (void)cell:(MediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView {
     NSMutableArray *itemsToShare = [NSMutableArray array];
     
     if (cell.mediaItem.caption.length > 0) {

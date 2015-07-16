@@ -8,10 +8,13 @@
 
 #import "MediaFullScreenViewController.h"
 #import "Media.h"
+#import "ImagesTableViewController.h"
+#import "MediaTableViewCell.h"
 
 @interface MediaFullScreenViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) Media *media;
+@property (nonatomic, strong) UIButton *share;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
 
@@ -43,6 +46,12 @@
     self.imageView = [UIImageView new];
     self.imageView.image = self.media.image;
     [self.scrollView addSubview:self.imageView];
+    
+    self.share = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.share setTitle:@"Share" forState:UIControlStateNormal];
+    [self.share addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchDown];
+    [self.share setFrame:CGRectMake(self.view.frame.size.width * .80, self.view.frame.size.height * .10, 40, 30)];
+    [self.imageView addSubview:self.share];
     
     self.scrollView.contentSize = self.media.image.size;
     
@@ -90,6 +99,14 @@
     }
     
     self.imageView.frame = contentsFrame;
+}
+
+- (void)share:(UIButton *)sender {
+    if (sender.state == UIControlEventTouchDown) {
+        // MediaTableViewCell *tmpCell = [[MediaTableViewCell alloc] init];
+        // tmpCell.mediaItem = self.media;
+        // need to call cell: didLongPressWithImageView: but is not a class method...
+    }
 }
 
 #pragma mark UIScrollViewDelegate
