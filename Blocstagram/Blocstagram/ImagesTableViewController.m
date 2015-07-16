@@ -146,6 +146,8 @@
 
 - (void)cell:(MediaTableViewCell *)cell didTapImage:(UIImageView *)imageView {
     MediaFullScreenViewController *fullscreenVC = [[MediaFullScreenViewController alloc] initWithMedia:cell.mediaItem];
+    [fullscreenVC setImagesVC:self];
+    [fullscreenVC setCell:cell];
     [self presentViewController:fullscreenVC animated:YES completion:nil];
 }
 
