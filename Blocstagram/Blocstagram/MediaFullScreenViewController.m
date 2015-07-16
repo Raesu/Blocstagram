@@ -51,7 +51,7 @@
     [self.share setUserInteractionEnabled:YES];
     [self.share addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchDown];
     [self.share setFrame:CGRectMake(self.view.frame.size.width * .80, self.view.frame.size.height * .10, 40, 30)];
-    [self.scrollView addSubview:self.share];
+    [self.view addSubview:self.share];
     
     self.scrollView.contentSize = self.media.image.size;
     

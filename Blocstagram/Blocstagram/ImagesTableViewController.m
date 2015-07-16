@@ -9,7 +9,7 @@
 #import "ImagesTableViewController.h"
 #import "MediaFullScreenViewController.h"
 
-@interface ImagesTableViewController () <MediaTableViewCellDelegate>
+@interface ImagesTableViewController () <MediaTableViewCellDelegate, UIScrollViewDelegate>
 
 @end
 
@@ -102,12 +102,12 @@
     return [self items].count;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    Media *mediaItem = [[self items] objectAtIndex:indexPath.row];
-    if (mediaItem.downloadState == MediaDownloadStateNeedsImage) {
-        [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
-    }
-}
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    Media *mediaItem = [[self items] objectAtIndex:indexPath.row];
+//    if (mediaItem.downloadState == MediaDownloadStateNeedsImage) {
+//        [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+//    }
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -134,13 +134,45 @@
         // [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
 
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self infiniteScrollIfNecessary];
+    NSLog(@"scrollViewDidScroll called");
+    NSLog(@"decelerationRate == RateNormal: %d", [scrollView decelerationRate] == UIScrollViewDecelerationRateNormal);
+    NSLog(@"isDragging: %d", [scrollView isDragging]);
+    
+    if ([scrollView decelerationRate] == UIScrollViewDecelerationRateNormal &&
+        [scrollView isDragging] == NO) {
+        NSLog(@"tests passed");
+        NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
+        NSLog(@"indexPaths: %@", indexPaths);
+        for (NSIndexPath *indexPath in indexPaths) {
+            Media *mediaItem = [[self items] objectAtIndex:indexPath.row];
+            if (mediaItem.downloadState == MediaDownloadStateNeedsImage) {
+                [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+                NSLog(@"image fetched, row: %ld", (long)indexPath.row);
+            }
+        }
+    }
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+
+//    if ([scrollView decelerationRate] == UIScrollViewDecelerationRateNormal) {
+//        NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
+//        NSLog(@"visibile indexpaths: %@", indexPaths);
+//        
+//        for (NSIndexPath *indexPath in indexPaths) {
+//            Media *mediaItem = [[self items] objectAtIndex:indexPath.row];
+//            if (mediaItem.downloadState == MediaDownloadStateNeedsImage) {
+//                [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+//            }
+//        }
+//    }
 }
 
 #pragma mark - Helper Methods
