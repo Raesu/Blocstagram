@@ -103,7 +103,9 @@
 
 - (void)share:(UIButton *)sender {
     if (sender.state == UIControlEventTouchDown) {
-        [self.imagesVC cell:self.cell didLongPressImageView:nil];
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self.imagesVC cell:self.cell didLongPressImageView:nil];
+        }];
     }
 }
 
