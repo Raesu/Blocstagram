@@ -102,12 +102,12 @@
     return [self items].count;
 }
 
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    Media *mediaItem = [[self items] objectAtIndex:indexPath.row];
-//    if (mediaItem.downloadState == MediaDownloadStateNeedsImage) {
-//        [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
-//    }
-//}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Media *mediaItem = [[self items] objectAtIndex:indexPath.row];
+    if (mediaItem.downloadState == MediaDownloadStateNeedsImage) {
+        [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -141,27 +141,26 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self infiniteScrollIfNecessary];
-    NSLog(@"scrollViewDidScroll called");
-    NSLog(@"decelerationRate == RateNormal: %d", [scrollView decelerationRate] == UIScrollViewDecelerationRateNormal);
-    NSLog(@"isDragging: %d", [scrollView isDragging]);
-    
-    if ([scrollView decelerationRate] == UIScrollViewDecelerationRateNormal &&
-        [scrollView isDragging] == NO) {
-        NSLog(@"tests passed");
-        NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
-        NSLog(@"indexPaths: %@", indexPaths);
-        for (NSIndexPath *indexPath in indexPaths) {
-            Media *mediaItem = [[self items] objectAtIndex:indexPath.row];
-            if (mediaItem.downloadState == MediaDownloadStateNeedsImage) {
-                [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
-                NSLog(@"image fetched, row: %ld", (long)indexPath.row);
-            }
-        }
-    }
+//    NSLog(@"scrollViewDidScroll called");
+//    NSLog(@"decelerationRate == RateNormal: %d", [scrollView decelerationRate] == UIScrollViewDecelerationRateNormal);
+//    NSLog(@"isDragging: %d", [scrollView isDragging]);
+//    
+//    if ([scrollView decelerationRate] == UIScrollViewDecelerationRateNormal &&
+//        [scrollView isDragging] == NO) {
+//        NSLog(@"tests passed");
+//        NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
+//        NSLog(@"indexPaths: %@", indexPaths);
+//        for (NSIndexPath *indexPath in indexPaths) {
+//            Media *mediaItem = [[self items] objectAtIndex:indexPath.row];
+//            if (mediaItem.downloadState == MediaDownloadStateNeedsImage) {
+//                [[DataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+//                NSLog(@"image fetched, row: %ld", (long)indexPath.row);
+//            }
+//        }
+//    }
 }
 
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-
+//- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
 //    if ([scrollView decelerationRate] == UIScrollViewDecelerationRateNormal) {
 //        NSArray *indexPaths = [self.tableView indexPathsForVisibleRows];
 //        NSLog(@"visibile indexpaths: %@", indexPaths);
@@ -173,7 +172,7 @@
 //            }
 //        }
 //    }
-}
+//}
 
 #pragma mark - Helper Methods
 
@@ -209,6 +208,18 @@
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
         [self presentViewController:activityVC animated:YES completion:nil];
     }
+}
+
+- (void)cellDidPressLikeButton:(MediaTableViewCell *)cell {
+    Media *item = cell.mediaItem;
+    
+    [[DataSource sharedInstance] toggleLikeOnMediaItem:item withCompletionHandler:^{
+        if (cell.mediaItem == item) {
+            cell.mediaItem = item;
+        }
+    }];
+    
+    cell.mediaItem = item;
 }
 
 @end
