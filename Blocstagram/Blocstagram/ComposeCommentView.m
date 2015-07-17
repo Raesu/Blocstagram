@@ -17,8 +17,7 @@
 
 @implementation ComposeCommentView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -90,9 +89,9 @@
     _isWritingComment = isWritingComment;
     
     if (animated) {
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1 options:UIViewAnimationOptionAllowAnimatedContent | UIViewAnimationOptionCurveEaseInOut animations:^{
             [self layoutSubviews];
-        }];
+        } completion:NULL];
     } else {
         [self layoutSubviews];
     }
