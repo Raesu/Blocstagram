@@ -27,6 +27,7 @@
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 
 @property (nonatomic, strong) LikeButton *likeButton;
+@property (nonatomic, strong) UILabel *numberOfLikesLabel;
 
 @end
 
@@ -72,19 +73,23 @@ static NSParagraphStyle *paragraphStyle;
         [self.likeButton addTarget:self action:@selector(likePressed:) forControlEvents:UIControlEventTouchUpInside];
         self.likeButton.backgroundColor = usernameLabelGray;
         
-        for (UIView *view in @[self.mediaImageView, self.usernameAndCaptionLabel, self.commentLabel, self.likeButton]) {
+        self.numberOfLikesLabel = [[UILabel alloc] init];
+        [self.numberOfLikesLabel setNumberOfLines:0];
+        [self.numberOfLikesLabel setBackgroundColor:usernameLabelGray];
+        
+        for (UIView *view in @[self.mediaImageView, self.usernameAndCaptionLabel, self.commentLabel, self.likeButton, self.numberOfLikesLabel]) {
             [self.contentView addSubview:view];
             [view setTranslatesAutoresizingMaskIntoConstraints:NO];
         }
         
-        NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_mediaImageView, _usernameAndCaptionLabel, _commentLabel, _likeButton);
+        NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_mediaImageView, _usernameAndCaptionLabel, _commentLabel, _likeButton, _numberOfLikesLabel);
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mediaImageView]|"
                                                                                  options:kNilOptions
                                                                                  metrics:nil
                                                                                    views:viewDictionary]];
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel][_likeButton(==38)]|"
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel][_numberOfLikesLabel(==38)][_likeButton(==38)]|"
                                                                                  options:NSLayoutFormatAlignAllTop | NSLayoutFormatAlignAllBottom
                                                                                  metrics:nil
                                                                                    views:viewDictionary]];
@@ -160,7 +165,7 @@ static NSParagraphStyle *paragraphStyle;
     if (self.mediaItem.image.size.width > 0 && CGRectGetWidth(self.contentView.bounds) > 0) {
         self.imageHeightConstraint.constant = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
     } else {
-        self.imageHeightConstraint.constant = 150;
+        self.imageHeightConstraint.constant = 250;
     }
     
     self.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.bounds)/2.0, 0, CGRectGetWidth(self.bounds)/2.0);
@@ -186,6 +191,16 @@ static NSParagraphStyle *paragraphStyle;
 }
 
 #pragma mark Strings
+
+- (NSAttributedString *)numberOfLikesString {
+    CGFloat likesFontSize = 12;
+    
+    NSString *baseString = [NSString stringWithFormat:@"%@", self.mediaItem.numberOfLikes];
+    
+    NSAttributedString *mutableNumberOfLikesString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:@{NSFontAttributeName : [lightFont fontWithSize:likesFontSize], NSParagraphStyleAttributeName : paragraphStyle}];
+    
+    return mutableNumberOfLikesString;
+}
 
 - (NSAttributedString *)usernameAndCaptionString {
     // #1
@@ -262,6 +277,7 @@ static NSParagraphStyle *paragraphStyle;
     self.mediaImageView.image = _mediaItem.image;
     self.usernameAndCaptionLabel.attributedText = [self usernameAndCaptionString];
     self.commentLabel.attributedText = [self commentString];
+    self.numberOfLikesLabel.attributedText = [self numberOfLikesString];
     self.likeButton.likeButtonState = mediaItem.likeState;
 }
 

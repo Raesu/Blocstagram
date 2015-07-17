@@ -80,7 +80,6 @@
                         [self didChangeValueForKey:@"mediaItems"];
                         
                         [self requestNewItemsWithCompletionHandler:nil];
-                        
                     } else {
                         [self populateDataWithParameters:nil completionHandler:nil];
                     }
@@ -297,6 +296,10 @@
             if (completionHandler) {
                 completionHandler();
             }
+            
+            [mediaItem setNumberOfLikes:[NSString stringWithFormat:@"%ld", [mediaItem.numberOfLikes integerValue] + 1]];
+            [self saveImages];
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             mediaItem.likeState = LikeStateNotLiked;
             
@@ -315,6 +318,10 @@
             if (completionHandler) {
                 completionHandler();
             }
+            
+            [mediaItem setNumberOfLikes:[NSString stringWithFormat:@"%ld", [mediaItem.numberOfLikes integerValue] - 1]];
+            [self saveImages];
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             mediaItem.likeState = LikeStateLiked;
             
