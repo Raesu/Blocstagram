@@ -38,12 +38,12 @@
     return self;
 }
 
-- (void) layoutSubviews {
+- (void)layoutSubviews {
     [super layoutSubviews];
     self.spinnerView.frame = self.imageView.frame;
 }
 
-- (void) setLikeButtonState:(LikeState)likeState {
+- (void)setLikeButtonState:(LikeState)likeState {
     _likeButtonState = likeState;
     
     NSString *imageName;
