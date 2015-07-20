@@ -51,15 +51,30 @@
     CGFloat cellSize = width / divisor;
     
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-    flowLayout.itemSize = CGSizeMake(cellSize, cellSize);
-    flowLayout.minimumInteritemSpacing = 0;
-    flowLayout.minimumLineSpacing = 0;
+    flowLayout.itemSize = CGSizeMake(cellSize - 3, cellSize - 3);
+    flowLayout.minimumInteritemSpacing = 3;
+    flowLayout.minimumLineSpacing = 3;
 }
 
 - (void)loadAssets {
     PHFetchOptions *options = [[PHFetchOptions alloc] init];
     options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
     
+    
+//    PHFetchResult *collections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum
+//                                                                          subtype:PHAssetCollectionSubtypeAny
+//                                                                          options:nil];
+//    NSMutableArray *tmpResults;
+//    
+//    for (PHAssetCollection *collection in collections) {
+//        PHFetchResult *assetsInCollection = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
+//        for (PHAsset *asset in assetsInCollection) {
+//            [tmpResults addObject:asset];
+//        }
+//    }
+//    
+//    self.result = tmpResults;
+//    
     self.result = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:options];
 }
 

@@ -16,6 +16,9 @@
 @property (nonatomic, strong) CropBox *cropBox;
 @property (nonatomic, assign) BOOL hasLoadedOnce;
 
+@property (nonatomic, strong) UIToolbar *topBar;
+@property (nonatomic, strong) UIToolbar *bottomBar;
+
 @end
 
 @implementation CropImageViewController
@@ -28,6 +31,15 @@
         self.media.image = sourceImage;
         
         self.cropBox = [CropBox new];
+        
+        self.topBar = [UIToolbar new];
+        [self.topBar setBarTintColor:[UIColor colorWithWhite:1.0 alpha:.15]];
+        [self.topBar setAlpha:0.5];
+        
+        self.bottomBar = [UIToolbar new];
+        [self.bottomBar setBarTintColor:[UIColor colorWithWhite:1.0 alpha:.15]];
+        [self.bottomBar setAlpha:0.5];
+        
     }
     
     return self;
@@ -39,6 +51,8 @@
     self.view.clipsToBounds = YES;
     
     [self.view addSubview:self.cropBox];
+    [self.view addSubview:self.topBar];
+    [self.view addSubview:self.bottomBar];
     
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Crop", @"Crop command") style:UIBarButtonItemStyleDone target:self action:@selector(cropPressed:)];
     
@@ -53,6 +67,7 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
+    CGFloat width = CGRectGetWidth(self.view.bounds);
     CGRect cropRect = CGRectZero;
     
     CGFloat edgeSize = MIN(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
@@ -62,6 +77,9 @@
     
     self.cropBox.frame = cropRect;
     self.cropBox.center = CGPointMake(size.width / 2, size.height / 2);
+    self.topBar.frame = CGRectMake(0, self.topLayoutGuide.length, width, CGRectGetMinY(self.cropBox.frame) - self.topLayoutGuide.length);
+    self.bottomBar.frame = CGRectMake(0, CGRectGetMaxY(self.cropBox.frame), width, CGRectGetHeight(self.view.bounds));
+    
     self.scrollView.frame = self.cropBox.frame;
     self.scrollView.clipsToBounds = NO;
     
