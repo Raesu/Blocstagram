@@ -49,6 +49,7 @@ static NSParagraphStyle *paragraphStyle;
     if (self) {
         self.mediaImageView = [UIImageView new];
         self.mediaImageView.userInteractionEnabled = YES;
+        self.contentView.backgroundColor = usernameLabelGray;
         
         self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
         self.tapGestureRecognizer.delegate = self;
