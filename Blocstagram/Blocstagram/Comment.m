@@ -13,8 +13,10 @@
 
 - (instancetype)initWithDictionary:(NSDictionary *)commentDictionary {
     self = [super init];
-    
+
     if (self) {
+        NSLog(@"TEST");
+        NSLog(@"id: %@", commentDictionary);
         self.idNumber = commentDictionary[@"id"];
         self.text = commentDictionary[@"text"];
         self.from = [[User alloc] initWithDictionary:commentDictionary[@"from"]];

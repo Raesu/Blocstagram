@@ -12,7 +12,7 @@
 #import "ImageLibraryViewController.h"
 #import "PostToInstagramViewController.h"
 
-@interface ImagesTableViewController () <MediaTableViewCellDelegate, UIScrollViewDelegate, CameraViewControllerDelegate, ImageLibraryViewControllerDelegate>
+@interface ImagesTableViewController () <MediaTableViewCellDelegate, UIScrollViewDelegate, CameraViewControllerDelegate, ImageLibraryViewControllerDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, weak) UIView *lastSelectedCommentView;
 @property (nonatomic, assign) CGFloat lastKeyboardAdjustment;
@@ -231,7 +231,7 @@
     if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
         fullscreenVC.modalPresentationStyle = UIModalPresentationFormSheet;
     } else {
-        //fullscreenVC.transitioningDelegate = self;
+        fullscreenVC.transitioningDelegate = self;
         fullscreenVC.modalPresentationStyle = UIModalPresentationCustom;
     }
     [self presentViewController:fullscreenVC animated:YES completion:nil];
