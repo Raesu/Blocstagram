@@ -160,7 +160,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Media *item = [[self items] objectAtIndex:indexPath.row];
-    return [MediaTableViewCell heightForMediaItem:item width:CGRectGetWidth(self.view.frame)];
+    return [MediaTableViewCell heightForMediaItem:item width:CGRectGetWidth(self.view.frame) traitCollection:self.view.traitCollection];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -227,6 +227,13 @@
     MediaFullScreenViewController *fullscreenVC = [[MediaFullScreenViewController alloc] initWithMedia:cell.mediaItem];
     [fullscreenVC setImagesVC:self];
     [fullscreenVC setCell:cell];
+    
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+        fullscreenVC.modalPresentationStyle = UIModalPresentationFormSheet;
+    } else {
+        //fullscreenVC.transitioningDelegate = self;
+        fullscreenVC.modalPresentationStyle = UIModalPresentationCustom;
+    }
     [self presentViewController:fullscreenVC animated:YES completion:nil];
 }
 
@@ -360,6 +367,11 @@
     
     if (imageVC) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
+        
+        nav.modalPresentationStyle = UIModalPresentationPopover;
+        UIPopoverPresentationController *popoverController = nav.popoverPresentationController;
+        popoverController.barButtonItem = sender;
+        
         [self presentViewController:nav animated:YES completion:nil];
     }
     return;

@@ -32,6 +32,9 @@
 
 @property (nonatomic, strong) ComposeCommentView *commentView;
 
+@property (nonatomic, strong) NSArray *horizontallyRegularConstraints;
+@property (nonatomic, strong) NSArray *horizontallyCompactConstraints;
+
 @end
 
 static UIFont *lightFont;
@@ -93,10 +96,36 @@ static NSParagraphStyle *paragraphStyle;
         
         NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_mediaImageView, _usernameAndCaptionLabel, _commentLabel, _likeButton, _numberOfLikesLabel, _commentView);
         
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mediaImageView]|"
-                                                                                 options:kNilOptions
-                                                                                 metrics:nil
-                                                                                   views:viewDictionary]];
+        self.horizontallyCompactConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mediaImageView]|"
+                                                                                      options:kNilOptions
+                                                                                      metrics:nil
+                                                                                        views:viewDictionary];
+        
+        NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_mediaImageView
+                                                                           attribute:NSLayoutAttributeWidth
+                                                                           relatedBy:NSLayoutRelationEqual
+                                                                              toItem:nil
+                                                                           attribute:NSLayoutAttributeNotAnAttribute
+                                                                          multiplier:1
+                                                                            constant:320];
+        
+        NSLayoutConstraint *centerConstraint = [NSLayoutConstraint constraintWithItem:self.contentView
+                                                                            attribute:NSLayoutAttributeCenterX
+                                                                            relatedBy:0
+                                                                               toItem:_mediaImageView
+                                                                            attribute:NSLayoutAttributeCenterX
+                                                                           multiplier:1
+                                                                             constant:0];
+        
+        self.horizontallyRegularConstraints = @[widthConstraint, centerConstraint];
+        
+        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+            /* It's compact! */
+            [self.contentView addConstraints:self.horizontallyCompactConstraints];
+        } else if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+            /* It's regular! */
+            [self.contentView addConstraints:self.horizontallyRegularConstraints];
+        }
         
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel][_numberOfLikesLabel(==38)][_likeButton(==38)]|"
                                                                                  options:NSLayoutFormatAlignAllTop | NSLayoutFormatAlignAllBottom
@@ -178,7 +207,13 @@ static NSParagraphStyle *paragraphStyle;
     
     // discuss this
     if (self.mediaItem.image.size.width > 0 && CGRectGetWidth(self.contentView.bounds) > 0) {
-        self.imageHeightConstraint.constant = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
+        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+            /* It's compact! */
+            self.imageHeightConstraint.constant = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
+        } else if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+            /* It's regular! */
+            self.imageHeightConstraint.constant = 320;
+        }
     } else {
         self.imageHeightConstraint.constant = 250;
     }
@@ -190,11 +225,13 @@ static NSParagraphStyle *paragraphStyle;
     [super setSelected:NO animated:animated];
 }
 
-+ (CGFloat)heightForMediaItem:(Media *)mediaItem width:(CGFloat)width {
++ (CGFloat)heightForMediaItem:(Media *)mediaItem width:(CGFloat)width traitCollection:(UITraitCollection *)traitCollection {
     MediaTableViewCell *layoutCell = [[MediaTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"layoutCell"];
     layoutCell.mediaItem = mediaItem;
     
     layoutCell.frame = CGRectMake(0, 0, width, CGRectGetHeight(layoutCell.frame));
+    layoutCell.overrideTraitCollection = traitCollection;
+    
     [layoutCell setNeedsLayout];
     [layoutCell layoutIfNeeded];
     
@@ -203,6 +240,14 @@ static NSParagraphStyle *paragraphStyle;
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:NO animated:animated];
+}
+
+- (UITraitCollection *)traitCollection {
+    if (self.overrideTraitCollection) {
+        return self.overrideTraitCollection;
+    }
+    
+    return [super traitCollection];
 }
 
 #pragma mark Strings
@@ -258,6 +303,18 @@ static NSParagraphStyle *paragraphStyle;
         [commentString appendAttributedString:oneCommentString];
     }
     return commentString;
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+        /* It's compact! */
+        [self.contentView removeConstraints:self.horizontallyRegularConstraints];
+        [self.contentView addConstraints:self.horizontallyCompactConstraints];
+    } else if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
+        /* It's regular */
+        [self.contentView removeConstraints:self.horizontallyCompactConstraints];
+        [self.contentView addConstraints:self.horizontallyRegularConstraints];
+    }
 }
 
 #pragma mark ImageView
