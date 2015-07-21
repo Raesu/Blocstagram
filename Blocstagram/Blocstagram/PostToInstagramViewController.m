@@ -60,7 +60,6 @@
         self.sendBarButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Send", @"Send button") style:UIBarButtonItemStyleDone target:self action:@selector(sendButtonPressed:)];
         [self addFiltersToQueue];
     }
-    
     return self;
 }
 

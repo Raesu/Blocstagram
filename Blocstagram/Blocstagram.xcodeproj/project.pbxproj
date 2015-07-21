@@ -146,6 +146,27 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		FA20F78D1B5E83B800E942F1 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FAE741C21B541AAD003D91BC /* LoginViewController.h */,
+				FAE741C31B541AAD003D91BC /* LoginViewController.m */,
+				FA855C8E1B4EB69300A3167E /* ImagesTableViewController.h */,
+				FA855C8F1B4EB69300A3167E /* ImagesTableViewController.m */,
+				FA938DD31B572D31004CCD73 /* MediaFullScreenViewController.h */,
+				FA938DD41B572D31004CCD73 /* MediaFullScreenViewController.m */,
+				FA20F7831B5D708700E942F1 /* CropImageViewController.h */,
+				FA20F7841B5D708700E942F1 /* CropImageViewController.m */,
+				FA20F7891B5DBF3800E942F1 /* PostToInstagramViewController.h */,
+				FA20F78A1B5DBF3800E942F1 /* PostToInstagramViewController.m */,
+				FA20F7861B5D765100E942F1 /* ImageLibraryViewController.h */,
+				FA20F7871B5D765100E942F1 /* ImageLibraryViewController.m */,
+				FA20F77A1B59B03200E942F1 /* CameraViewController.h */,
+				FA20F77B1B59B03200E942F1 /* CameraViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		FA855C471B4EAC5900A3167E = {
 			isa = PBXGroup;
 			children = (
@@ -171,20 +192,7 @@
 			children = (
 				FA855C571B4EAC5900A3167E /* AppDelegate.h */,
 				FA855C581B4EAC5900A3167E /* AppDelegate.m */,
-				FAE741C21B541AAD003D91BC /* LoginViewController.h */,
-				FAE741C31B541AAD003D91BC /* LoginViewController.m */,
-				FA855C8E1B4EB69300A3167E /* ImagesTableViewController.h */,
-				FA855C8F1B4EB69300A3167E /* ImagesTableViewController.m */,
-				FA938DD31B572D31004CCD73 /* MediaFullScreenViewController.h */,
-				FA938DD41B572D31004CCD73 /* MediaFullScreenViewController.m */,
-				FA20F7831B5D708700E942F1 /* CropImageViewController.h */,
-				FA20F7841B5D708700E942F1 /* CropImageViewController.m */,
-				FA20F7891B5DBF3800E942F1 /* PostToInstagramViewController.h */,
-				FA20F78A1B5DBF3800E942F1 /* PostToInstagramViewController.m */,
-				FA20F7861B5D765100E942F1 /* ImageLibraryViewController.h */,
-				FA20F7871B5D765100E942F1 /* ImageLibraryViewController.m */,
-				FA20F77A1B59B03200E942F1 /* CameraViewController.h */,
-				FA20F77B1B59B03200E942F1 /* CameraViewController.m */,
+				FA20F78D1B5E83B800E942F1 /* View Controllers */,
 				FA855C601B4EAC5900A3167E /* Images.xcassets */,
 				FA20F78C1B5E69A300E942F1 /* Data */,
 				FA855C531B4EAC5900A3167E /* Supporting Files */,
