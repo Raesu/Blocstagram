@@ -30,7 +30,7 @@
 
 #pragma mark NSCoding Delegate
 
-- (void) encodeWithCoder:(NSCoder *)aCoder {
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.idNumber forKey:NSStringFromSelector(@selector(idNumber))];
     [aCoder encodeObject:self.userName forKey:NSStringFromSelector(@selector(userName))];
     [aCoder encodeObject:self.fullName forKey:NSStringFromSelector(@selector(fullName))];
